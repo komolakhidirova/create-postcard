@@ -83,13 +83,13 @@ function App() {
 
 				<div className='space-y-4'>
 					<div>
-						<label>Search Background Image:</label>
+						<label>Background Image:</label>
 						<div className='flex'>
 							<input
 								type='text'
 								value={searchTerm}
 								onChange={e => setSearchTerm(e.target.value)}
-								placeholder='What do you want to see on your postcard background?'
+								placeholder='eg. Snowman'
 								className='flex-5 rounded-r-none'
 							/>
 							<button
@@ -138,14 +138,14 @@ function App() {
 					</div>
 
 					<div>
-						<label>Text:</label>
+						<label>Your Wishes:</label>
 						<input
 							type='text'
 							value={newPostcard.text}
 							onChange={e =>
 								setNewPostcard({ ...newPostcard, text: e.target.value })
 							}
-							placeholder='What do you want to write on the postcard?'
+							placeholder='What do you want to write?'
 							className='w-full'
 						/>
 					</div>
@@ -159,7 +159,7 @@ function App() {
 								onChange={e =>
 									setNewPostcard({ ...newPostcard, from: e.target.value })
 								}
-								placeholder='What is your name?'
+								placeholder='Your name'
 								className='w-full'
 							/>
 						</div>
@@ -171,7 +171,7 @@ function App() {
 								onChange={e =>
 									setNewPostcard({ ...newPostcard, to: e.target.value })
 								}
-								placeholder="What is the recipient's name?"
+								placeholder='Recipient'
 								className='w-full'
 							/>
 						</div>
