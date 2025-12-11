@@ -11,6 +11,8 @@ function App() {
 	const [newPostcard, setNewPostcard] = useState({
 		backgroundImage: '',
 		text: '',
+		from: '',
+		to: '',
 	})
 
 	const [unsplashPhotos, setUnsplashPhotos] = useState([])
@@ -63,7 +65,7 @@ function App() {
 		}
 
 		setPostcards([...postcards, newCard])
-		setNewPostcard({ backgroundImage: '', text: '' })
+		setNewPostcard({ backgroundImage: '', text: '', from: '', to: '' })
 	}
 
 	const removePostcard = id => {
@@ -135,7 +137,7 @@ function App() {
 						)}
 					</div>
 
-					<div className='mb-10'>
+					<div>
 						<label>Text:</label>
 						<input
 							type='text'
@@ -143,15 +145,47 @@ function App() {
 							onChange={e =>
 								setNewPostcard({ ...newPostcard, text: e.target.value })
 							}
-							placeholder='What do you want to write on your postcard?'
+							placeholder='What do you want to write on the postcard?'
 							className='w-full'
 						/>
+					</div>
+
+					<div className='flex  gap-5 mb-10'>
+						<div className='w-full'>
+							<label>From:</label>
+							<input
+								type='text'
+								value={newPostcard.from}
+								onChange={e =>
+									setNewPostcard({ ...newPostcard, from: e.target.value })
+								}
+								placeholder='What is your name?'
+								className='w-full'
+							/>
+						</div>
+						<div className='w-full'>
+							<label>To:</label>
+							<input
+								type='text'
+								value={newPostcard.to}
+								onChange={e =>
+									setNewPostcard({ ...newPostcard, to: e.target.value })
+								}
+								placeholder="What is the recipient's name?"
+								className='w-full'
+							/>
+						</div>
 					</div>
 
 					<button
 						onClick={addPostcard}
 						className='form-btn'
-						disabled={!newPostcard.backgroundImage || !newPostcard.text}
+						disabled={
+							!newPostcard.backgroundImage ||
+							!newPostcard.text ||
+							!newPostcard.from ||
+							!newPostcard.to
+						}
 					>
 						Create Postcard
 					</button>

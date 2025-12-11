@@ -26,7 +26,7 @@
 	}
 
 	input {
-		@apply w-full p-2 rounded bg-gray-200 border-2  border-brown;
+		@apply w-full p-2 rounded bg-gray-200 border-2  border-brown outline-none;
 	}
 }
 
@@ -42,5 +42,24 @@
 
 	.download-btn {
 		@apply mt-6 px-6 py-2 bg-green-800 hover:bg-green-700 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2  transition-colors duration-300 ease-in-out cursor-pointer;
+	}
+
+	/* app.css */
+
+	.postcard-outer-frame {
+		position: relative;
+		/* Ваша градиентная заливка, которая станет рамкой */
+		background: repeating-linear-gradient(
+			45deg,
+			#c54540,
+			#c54540 10px,
+			#ffffff 10px,
+			#ffffff 20px,
+			#37877a 20px,
+			#37877a 30px,
+			#ffffff 30px,
+			#ffffff 40px
+		);
+		border-radius: 20px;
 	}
 }

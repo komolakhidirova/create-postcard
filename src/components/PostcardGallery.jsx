@@ -15,6 +15,8 @@ const PostcardGallery = ({ postcards, removePostcard }) => {
 							<Postcard
 								backgroundImage={card.backgroundImage}
 								text={card.text}
+								from={card.from}
+								to={card.to}
 								showDownloadButton={true}
 							/>
 

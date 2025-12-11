@@ -1,7 +1,7 @@
 import { toPng } from 'html-to-image'
 import React, { useRef, useState } from 'react'
 
-function Postcard({ backgroundImage, text, onDownloadComplete }) {
+function Postcard({ backgroundImage, text, from, to, onDownloadComplete }) {
 	const postcardRef = useRef(null)
 	const [isDownloading, setIsDownloading] = useState(false)
 
@@ -12,7 +12,6 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 		try {
 			const dataUrl = await toPng(postcardRef.current, {
 				quality: 1.0,
-				backgroundColor: '#ffffff',
 				skipFonts: true,
 				cacheBust: true,
 			})
@@ -27,53 +26,46 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 				onDownloadComplete(fileName)
 			}
 		} catch (error) {
-			console.error('Ошибка:', error)
+			console.error('Error:', error)
 		} finally {
 			setIsDownloading(false)
 		}
 	}
 
 	return (
-		<div className='flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 '>
+		<div className='flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8'>
 			<div
 				ref={postcardRef}
-				className='
-					relative 
-					w-full 
-					max-w-4xl 
-					h-[300px] 
-					sm:h-[400px] 
-					md:h-[500px] 
-					lg:h-[600px]
-					overflow-hidden
-					bg-cover 
-					bg-center 
-					bg-no-repeat 
-				'
-				style={{
-					backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${backgroundImage})`,
-				}}
+				className='relative w-full max-w-4xl h-[300px] sm:h-[400px] md:h-[500px] lg:h-[600px] postcard-outer-frame'
 			>
-				<div className='p-4 sm:p-6 md:p-8 h-full flex flex-col justify-center items-center'>
-					<div
-						style={{
-							position: 'absolute',
-							left: '50%',
-							top: '50%',
-							transform: 'translate(-50%, -50%)',
-							background:
-								'repeating-linear-gradient(45deg, #C54540, #C54540 10px, #FFFFFF 10px, #FFFFFF 20px, #37877A 20px, #37877A 30px, #FFFFFF 30px, #FFFFFF 40px)',
-							padding: '10px',
-							borderRadius: '20px',
-						}}
-					>
-						<div className='max-w-3xl mx-auto bg-white p-5 md:p-10 rounded-xl'>
-							<h1
-								className='
-							text-xl md:text-3xl font-bold text-blue-800 italic'
-							>
-								{text}
-							</h1>
+				<div className='absolute inset-2.5 overflow-hidden rounded-[10px]'>
+					<div className='relative h-full w-full'>
+						<div className='absolute top-0 right-0 z-10'>
+							<img src='/stamp.png' className='w-40 md:w-60' />
+						</div>
+						<div
+							className='absolute inset-0 bg-cover bg-center bg-no-repeat'
+							style={{
+								backgroundImage: `url(${backgroundImage})`,
+							}}
+						/>
+
+						<div className='h-full w-full flex flex-col justify-start items-start relative z-10 '>
+							<div className='max-w-sm m-10 bg-white p-5 md:p-10 rounded-sm border-2 border-dashed border-blue-950'>
+								<h1 className='text-xl md:text-3xl font-bold text-blue-800 italic mb-0'>
+									{text}
+								</h1>
+							</div>
+							<div className=' bg-yellow-50 py-3 px-5 rounded-sm border-2 border-green-900 border-dashed absolute right-5 bottom-5'>
+								<p className='underline'>
+									From:
+									<span className='text-blue-800'> {from}</span>
+								</p>
+								<p className='underline'>
+									To:
+									<span className='text-blue-800'> {to}</span>
+								</p>
+							</div>
 						</div>
 					</div>
 				</div>
