@@ -26,7 +26,7 @@
 	}
 
 	input {
-		@apply w-full p-2 rounded bg-gray-200 border-2 border-brown;
+		@apply w-full p-2 rounded bg-gray-200 border-2  border-brown;
 	}
 }
 
@@ -41,6 +41,6 @@
 	}
 
 	.download-btn {
-		@apply mt-6 sm:mt-8 px-6 py-2 bg-green-800 hover:bg-green-700 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2  transition-colors duration-300 ease-in-out cursor-pointer;
+		@apply mt-6 px-6 py-2 bg-green-800 hover:bg-green-700 text-white font-semibold rounded-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2  transition-colors duration-300 ease-in-out cursor-pointer;
 	}
 }

@@ -45,7 +45,6 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 					sm:h-[400px] 
 					md:h-[500px] 
 					lg:h-[600px]
-					shadow-2xl 
 					overflow-hidden
 					bg-cover 
 					bg-center 
