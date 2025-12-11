@@ -13,9 +13,46 @@ function App() {
 		text: '',
 	})
 
+	const [unsplashPhotos, setUnsplashPhotos] = useState([])
+	const [searchTerm, setSearchTerm] = useState('')
+	const [loading, setLoading] = useState(false)
+	const [error, setError] = useState(null)
+
+	const UNSPLASH_ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
+
 	useEffect(() => {
 		localStorage.setItem('postcards', JSON.stringify(postcards))
 	}, [postcards])
+
+	const fetchUnsplashPhotos = async query => {
+		setLoading(true)
+		setError(null)
+
+		try {
+			const response = await fetch(
+				`https://api.unsplash.com/search/photos?query=christmas ${query}&per_page=3&client_id=${UNSPLASH_ACCESS_KEY}`
+			)
+
+			if (!response.ok) {
+				throw new Error('Ошибка при загрузке фотографий')
+			}
+
+			const data = await response.json()
+			setUnsplashPhotos(data.results)
+		} catch (err) {
+			setError(err.message)
+			console.error('Error fetching photos:', err)
+		} finally {
+			setLoading(false)
+		}
+	}
+
+	const handleSearch = e => {
+		e.preventDefault()
+		if (searchTerm.trim()) {
+			fetchUnsplashPhotos(searchTerm)
+		}
+	}
 
 	const addPostcard = () => {
 		if (!newPostcard.backgroundImage || !newPostcard.text) return
@@ -33,6 +70,10 @@ function App() {
 		setPostcards(postcards.filter(card => card.id !== id))
 	}
 
+	const selectBackground = photoUrl => {
+		setNewPostcard({ ...newPostcard, backgroundImage: photoUrl })
+	}
+
 	return (
 		<main>
 			<section className='p-10'>
@@ -40,44 +81,58 @@ function App() {
 
 				<div className='space-y-4'>
 					<div>
-						<label>Background:</label>
+						<label>Search Background Image:</label>
 						<div className='flex'>
 							<input
 								type='text'
-								value={'ok'}
-								onChange={e => e.preventDefault()}
+								value={searchTerm}
+								onChange={e => setSearchTerm(e.target.value)}
 								placeholder='What do you want to see on your postcard background?'
 								className='flex-5 rounded-r-none'
 							/>
-							<button className='form-btn bg-brown flex-1 rounded-l-none rounded-r '>
-								Search
+							<button
+								onClick={handleSearch}
+								className='form-btn bg-brown flex-1 rounded-l-none rounded-r'
+								disabled={loading}
+							>
+								{loading ? 'Searching...' : 'Search'}
 							</button>
 						</div>
+
+						{error && <p className='text-red-500 text-sm mt-2'>{error}</p>}
 					</div>
 
 					<div>
-						<p className='mb-2'>Click to choose:</p>
-						<div className='flex gap-3'>
-							{['/bg.jpg', '/bg1.jpg', '/bg2.jpg'].map((img, index) => (
-								<button
-									key={index}
-									onClick={() =>
-										setNewPostcard({ ...newPostcard, backgroundImage: img })
-									}
-									className={`p-1 rounded-lg ${
-										newPostcard.backgroundImage === img
-											? 'ring-2 ring-red-800'
-											: ''
-									}`}
-								>
-									<img
-										src={img}
-										className='w-30 h-30 object-cover rounded-md'
-										alt={`Background ${index + 1}`}
-									/>
-								</button>
-							))}
-						</div>
+						{unsplashPhotos.length > 0 && (
+							<>
+								<p className='mb-2'>Click to choose:</p>
+
+								<div className='flex gap-3'>
+									{unsplashPhotos.map(photo => (
+										<button
+											key={photo.id}
+											onClick={() =>
+												selectBackground(photo.urls.regular || photo.urls.small)
+											}
+											className={`p-1 rounded-lg transition-all ${
+												newPostcard.backgroundImage ===
+												(photo.urls.regular || photo.urls.small)
+													? 'ring-2 ring-red-800 transform scale-105'
+													: 'ring-1 ring-gray-300 hover:ring-2 hover:ring-red-700'
+											}`}
+											title={photo.alt_description || 'Unsplash photo'}
+										>
+											<img
+												src={photo.urls.small}
+												className='w-30 h-30 object-cover rounded-md'
+												alt={photo.alt_description || 'Background image'}
+												loading='lazy'
+											/>
+										</button>
+									))}
+								</div>
+							</>
+						)}
 					</div>
 
 					<div className='mb-10'>
@@ -89,10 +144,15 @@ function App() {
 								setNewPostcard({ ...newPostcard, text: e.target.value })
 							}
 							placeholder='What do you want to write on your postcard?'
+							className='w-full'
 						/>
 					</div>
 
-					<button onClick={addPostcard} className='form-btn'>
+					<button
+						onClick={addPostcard}
+						className='form-btn'
+						disabled={!newPostcard.backgroundImage || !newPostcard.text}
+					>
 						Create Postcard
 					</button>
 				</div>
