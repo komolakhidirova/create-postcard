@@ -1,22 +1,22 @@
-import React, { useState } from 'react'
-import Postcard from './components/Postcard'
+import React, { useEffect, useState } from 'react'
+import './App.css'
+import PostcardGallery from './components/PostcardGallery'
 
 function App() {
-	// Состояния для управления открытками
-	const [postcards, setPostcards] = useState([
-		{
-			id: 1,
-			backgroundImage: 'bg.jpg',
-			text: 'Первая открытка',
-		},
-	])
+	const [postcards, setPostcards] = useState(() => {
+		const saved = localStorage.getItem('postcards')
+		return saved ? JSON.parse(saved) : []
+	})
 
 	const [newPostcard, setNewPostcard] = useState({
 		backgroundImage: '',
 		text: '',
 	})
 
-	// Функции для добавления/удаления открыток
+	useEffect(() => {
+		localStorage.setItem('postcards', JSON.stringify(postcards))
+	}, [postcards])
+
 	const addPostcard = () => {
 		if (!newPostcard.backgroundImage || !newPostcard.text) return
 
@@ -34,14 +34,14 @@ function App() {
 	}
 
 	return (
-		<div className='min-h-screen bg-gray-900 text-white p-4'>
+		<main>
 			{/* Панель управления */}
-			<div className='max-w-4xl mx-auto mb-8 bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl'>
-				<h1 className='text-3xl font-bold mb-6'>Создатель открыток</h1>
+			<section className='p-10'>
+				<h1>Create Your Own Postcard</h1>
 
 				<div className='space-y-4'>
 					<div>
-						<label className='block mb-2'>URL фонового изображения:</label>
+						<label>URL:</label>
 						<input
 							type='text'
 							value={newPostcard.backgroundImage}
@@ -52,64 +52,29 @@ function App() {
 								})
 							}
 							placeholder='https://example.com/image.jpg или /images/bg.jpg'
-							className='w-full p-2 rounded bg-gray-700 text-white'
 						/>
 					</div>
 
-					<div>
-						<label className='block mb-2'>Текст открытки:</label>
+					<div className='mb-10'>
+						<label>Text:</label>
 						<input
 							type='text'
 							value={newPostcard.text}
 							onChange={e =>
 								setNewPostcard({ ...newPostcard, text: e.target.value })
 							}
-							placeholder='Введите текст для открытки'
-							className='w-full p-2 rounded bg-gray-700 text-white'
+							placeholder='Enter text'
 						/>
 					</div>
 
-					<button
-						onClick={addPostcard}
-						className='bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded'
-					>
-						Добавить открытку
+					<button onClick={addPostcard} className='form-btn'>
+						Create Postcard
 					</button>
 				</div>
-			</div>
+			</section>
 
-			{/* Галерея открыток */}
-			<div className='max-w-6xl mx-auto'>
-				<h2 className='text-2xl font-bold mb-4'>
-					Мои открытки ({postcards.length})
-				</h2>
-
-				{postcards.length === 0 ? (
-					<p className='text-gray-400'>Нет открыток. Создайте первую!</p>
-				) : (
-					<div className='space-y-8'>
-						{postcards.map(card => (
-							<div key={card.id} className='relative group'>
-								<Postcard
-									backgroundImage={card.backgroundImage}
-									text={card.text}
-									showDownloadButton={true}
-								/>
-
-								<button
-									onClick={() => removePostcard(card.id)}
-									className='absolute top-4 right-4 bg-red-600/80 hover:bg-red-700 
-                           text-white p-2 rounded-lg opacity-0 group-hover:opacity-100 
-                           transition-opacity z-50'
-								>
-									Удалить
-								</button>
-							</div>
-						))}
-					</div>
-				)}
-			</div>
-		</div>
+			<PostcardGallery postcards={postcards} removePostcard={removePostcard} />
+		</main>
 	)
 }
 

@@ -5,15 +5,6 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 	const postcardRef = useRef(null)
 	const [isDownloading, setIsDownloading] = useState(false)
 
-	const backgroundStyles = {
-		backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${backgroundImage})`,
-		backgroundSize: 'cover',
-		backgroundPosition: 'center',
-		backgroundRepeat: 'no-repeat',
-		backgroundAttachment: 'fixed',
-		minHeight: '100vh',
-	}
-
 	const handleDownload = async () => {
 		if (!postcardRef.current) return
 
@@ -32,7 +23,6 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 			link.href = canvas.toDataURL('image/png')
 			link.click()
 
-			// Оповещаем App о скачивании
 			if (onDownloadComplete) {
 				onDownloadComplete(fileName)
 			}
@@ -44,11 +34,34 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 	}
 
 	return (
-		<div className='relative postcard-container'>
-			<div ref={postcardRef} style={backgroundStyles} className={`relative `}>
-				<div className='p-8 min-h-screen flex flex-col justify-center'>
-					<div className='text-white text-center'>
-						<h1 className='text-4xl md:text-6xl font-bold mb-6 drop-shadow-lg'>
+		<div className='flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8 '>
+			<div
+				ref={postcardRef}
+				className='
+					relative 
+					w-full 
+					max-w-4xl 
+					h-[300px] 
+					sm:h-[400px] 
+					md:h-[500px] 
+					lg:h-[600px]
+					rounded-xl 
+					shadow-2xl 
+					overflow-hidden
+					bg-cover 
+					bg-center 
+					bg-no-repeat 
+				'
+				style={{
+					backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(${backgroundImage})`,
+				}}
+			>
+				<div className='p-4 sm:p-6 md:p-8 h-full flex flex-col justify-center items-center'>
+					<div className=' text-center max-w-3xl mx-auto bg-white/70 p-10 rounded-xl'>
+						<h1
+							className='
+							text-2xl sm:text-3xl md:text-4xl font-bold mb-4 drop-shadow-lg  underline text-blue-800 italic'
+						>
 							{text}
 						</h1>
 					</div>
@@ -58,13 +71,15 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 			<button
 				onClick={handleDownload}
 				disabled={isDownloading}
-				className='download-button'
+				className='
+					download-btn
+				'
 				aria-label='Скачать открытку'
 			>
 				{isDownloading ? (
-					<span className='flex items-center gap-2'>Создание...</span>
+					<span>Downloading...</span>
 				) : (
-					<span className='flex items-center gap-2'>Скачать открытку</span>
+					<span>Download Postcard</span>
 				)}
 			</button>
 		</div>

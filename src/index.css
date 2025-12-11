@@ -1,8 +1,7 @@
 @import 'tailwindcss';
 
 body {
-	background: 
-    /* Полупрозрачный оверлей + изображение */ linear-gradient(
+	background: linear-gradient(
 			rgba(170, 170, 170, 0.7),
 			rgba(170, 170, 170, 0.7)
 		),
@@ -15,14 +14,4 @@ body {
 	min-height: 100vh;
 	margin: 0;
 	padding: 0;
-}
-
-@layer base {
-	h1 {
-		@apply text-3xl max-sm:text-2xl  font-bold mb-10 text-center;
-	}
-
-	p {
-		@apply bg-amber-50;
-	}
 }
