@@ -35,7 +35,6 @@ function App() {
 
 	return (
 		<main>
-			{/* Панель управления */}
 			<section className='p-10'>
 				<h1>Create Your Own Postcard</h1>
 
@@ -55,6 +54,18 @@ function App() {
 						/>
 					</div>
 
+					<div>
+						<label>Background:</label>
+						<input
+							type='text'
+							value={newPostcard.text}
+							onChange={e =>
+								setNewPostcard({ ...newPostcard, text: e.target.value })
+							}
+							placeholder='What do you want to see on your postcard background?'
+						/>
+					</div>
+
 					<div className='mb-10'>
 						<label>Text:</label>
 						<input
@@ -63,7 +74,7 @@ function App() {
 							onChange={e =>
 								setNewPostcard({ ...newPostcard, text: e.target.value })
 							}
-							placeholder='Enter text'
+							placeholder='What do you want to write on your postcard?'
 						/>
 					</div>
 

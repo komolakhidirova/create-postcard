@@ -1,4 +1,4 @@
-import html2canvas from 'html2canvas'
+import { toPng } from 'html-to-image'
 import React, { useRef, useState } from 'react'
 
 function Postcard({ backgroundImage, text, onDownloadComplete }) {
@@ -10,17 +10,17 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 
 		setIsDownloading(true)
 		try {
-			const canvas = await html2canvas(postcardRef.current, {
-				useCORS: true,
-				backgroundColor: null,
-				scale: 2,
-				logging: false,
+			const dataUrl = await toPng(postcardRef.current, {
+				quality: 1.0,
+				backgroundColor: '#ffffff',
+				skipFonts: true,
+				cacheBust: true,
 			})
 
 			const link = document.createElement('a')
 			const fileName = `postcard-${Date.now()}.png`
 			link.download = fileName
-			link.href = canvas.toDataURL('image/png')
+			link.href = dataUrl
 			link.click()
 
 			if (onDownloadComplete) {
@@ -45,7 +45,6 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 					sm:h-[400px] 
 					md:h-[500px] 
 					lg:h-[600px]
-					rounded-xl 
 					shadow-2xl 
 					overflow-hidden
 					bg-cover 
@@ -57,13 +56,26 @@ function Postcard({ backgroundImage, text, onDownloadComplete }) {
 				}}
 			>
 				<div className='p-4 sm:p-6 md:p-8 h-full flex flex-col justify-center items-center'>
-					<div className=' text-center max-w-3xl mx-auto bg-white/70 p-10 rounded-xl'>
-						<h1
-							className='
-							text-2xl sm:text-3xl md:text-4xl font-bold mb-4 drop-shadow-lg  underline text-blue-800 italic'
-						>
-							{text}
-						</h1>
+					<div
+						style={{
+							position: 'absolute',
+							left: '50%',
+							top: '50%',
+							transform: 'translate(-50%, -50%)',
+							background:
+								'repeating-linear-gradient(45deg, #C54540, #C54540 10px, #FFFFFF 10px, #FFFFFF 20px, #37877A 20px, #37877A 30px, #FFFFFF 30px, #FFFFFF 40px)',
+							padding: '10px',
+							borderRadius: '20px',
+						}}
+					>
+						<div className='max-w-3xl mx-auto bg-white p-5 md:p-10 rounded-xl'>
+							<h1
+								className='
+							text-xl md:text-3xl font-bold text-blue-800 italic'
+							>
+								{text}
+							</h1>
+						</div>
 					</div>
 				</div>
 			</div>
