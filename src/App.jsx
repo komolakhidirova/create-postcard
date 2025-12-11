@@ -7,15 +7,12 @@ function App() {
 		{
 			id: 1,
 			backgroundImage: 'bg.jpg',
-			overlayOpacity: 0.3,
 			text: 'Первая открытка',
-			downloadFileName: 'postcard-1',
 		},
 	])
 
 	const [newPostcard, setNewPostcard] = useState({
 		backgroundImage: '',
-		overlayOpacity: 0.3,
 		text: '',
 	})
 
@@ -26,11 +23,10 @@ function App() {
 		const newCard = {
 			id: Date.now(),
 			...newPostcard,
-			downloadFileName: `postcard-${Date.now()}`,
 		}
 
 		setPostcards([...postcards, newCard])
-		setNewPostcard({ backgroundImage: '', overlayOpacity: 0.3, text: '' })
+		setNewPostcard({ backgroundImage: '', text: '' })
 	}
 
 	const removePostcard = id => {
@@ -73,26 +69,6 @@ function App() {
 						/>
 					</div>
 
-					<div>
-						<label className='block mb-2'>
-							Прозрачность оверлея: {newPostcard.overlayOpacity}
-						</label>
-						<input
-							type='range'
-							min='0'
-							max='1'
-							step='0.1'
-							value={newPostcard.overlayOpacity}
-							onChange={e =>
-								setNewPostcard({
-									...newPostcard,
-									overlayOpacity: parseFloat(e.target.value),
-								})
-							}
-							className='w-full'
-						/>
-					</div>
-
 					<button
 						onClick={addPostcard}
 						className='bg-blue-600 hover:bg-blue-700 px-6 py-2 rounded'
@@ -116,9 +92,7 @@ function App() {
 							<div key={card.id} className='relative group'>
 								<Postcard
 									backgroundImage={card.backgroundImage}
-									overlayOpacity={card.overlayOpacity}
 									text={card.text}
-									downloadFileName={card.downloadFileName}
 									showDownloadButton={true}
 								/>
 
