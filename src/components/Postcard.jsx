@@ -56,7 +56,7 @@ function Postcard({ backgroundImage, text, from, to, onDownloadComplete }) {
 									{text}
 								</h1>
 							</div>
-							<div className=' bg-yellow-50 py-3 px-6 max-sm:py-2 rounded-sm border-2 border-green-900 border-dashed absolute right-5 bottom-5 max-sm:text-xs'>
+							<div className=' bg-yellow-50 py-3 px-7 max-sm:py-2 rounded-sm border-2 border-green-900 border-dashed absolute right-5 bottom-5 max-sm:text-xs'>
 								<p className='underline'>
 									From:
 									<span className='text-blue-800'> {from}</span>
