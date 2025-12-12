@@ -49,11 +49,11 @@
 	}
 
 	.postcard {
-		@apply absolute inset-2.5 max-sm:inset-0.5 overflow-hidden;
+		@apply absolute inset-2.5 max-sm:inset-1 overflow-hidden;
 	}
 
 	.postcard-outer-frame {
-		@apply relative w-full max-w-4xl h-[300px] max-sm:h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px];
+		@apply relative w-full max-w-4xl h-[300px] max-sm:h-[200px] sm:h-[400px] md:h-[500px] lg:h-[600px];
 		background: repeating-linear-gradient(
 			45deg,
 			#c54540,
@@ -77,14 +77,14 @@
 	}
 
 	.postcard-text-container {
-		@apply max-w-sm m-10 max-sm:m-5  max-sm:max-w-35 bg-white p-10 max-sm:p-5 rounded-sm border-2 border-dashed border-blue-950;
+		@apply max-w-sm m-10 max-sm:m-5  max-sm:max-w-35 bg-white p-10 max-sm:p-4 rounded-sm border-2 border-dashed border-blue-950;
 	}
 
 	.postcard-text {
-		@apply text-xl md:text-3xl max-sm:text-xs font-bold text-blue-800 italic mb-0;
+		@apply text-xl md:text-3xl max-sm:text-[16px] font-bold text-blue-800 italic mb-0;
 	}
 
 	.postcard-info-container {
-		@apply bg-yellow-50 py-3 px-5 max-sm:py-2 max-sm:px-4 rounded-sm border-2 border-green-900 border-dashed absolute right-5 bottom-5 max-sm:right-3 max-sm:bottom-3  max-sm:text-[8px];
+		@apply bg-yellow-50 py-3 px-5 max-sm:py-1 max-sm:px-3 rounded-sm border-2 border-green-900 border-dashed absolute right-5 bottom-5 max-sm:right-3 max-sm:bottom-3  max-sm:text-[5px];
 	}
 }
