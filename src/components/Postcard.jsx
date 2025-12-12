@@ -34,36 +34,31 @@ function Postcard({ backgroundImage, text, from, to, onDownloadComplete }) {
 
 	return (
 		<div className='flex flex-col items-center justify-center p-4 sm:p-6 lg:p-8'>
-			<div
-				ref={postcardRef}
-				className='relative w-full max-w-4xl h-[300px] max-sm:h-[250px] sm:h-[400px] md:h-[500px] lg:h-[600px] postcard-outer-frame'
-			>
-				<div className='absolute inset-2.5 max-sm:inset-1.5 overflow-hidden rounded-[10px]'>
+			<div ref={postcardRef} className='postcard-outer-frame'>
+				<div className='postcard'>
 					<div className='relative h-full w-full'>
-						<div className='absolute top-0 right-0 z-10'>
-							<img src='/stamp.png' className='w-40 md:w-60 max-sm:w-25' />
+						<div className='postcard-stamp-container'>
+							<img src='/stamp.png' className='w-40 md:w-60 max-sm:w-20' />
 						</div>
 						<div
-							className='absolute inset-0 bg-cover bg-center bg-no-repeat'
+							className='postcard-bg-image'
 							style={{
 								backgroundImage: `url(${backgroundImage})`,
 							}}
 						/>
 
 						<div className='h-full w-full flex flex-col justify-start items-start relative z-10 '>
-							<div className='max-w-sm m-10 max-sm:m-2  max-sm:max-w-35 bg-white p-5 md:p-10 max-sm:p-3 rounded-sm border-2 border-dashed border-blue-950'>
-								<h1 className='text-xl md:text-3xl max-sm:text-sm font-bold text-blue-800 italic mb-0'>
-									{text}
-								</h1>
+							<div className='postcard-text-container'>
+								<h1 className='postcard-text'>{text}</h1>
 							</div>
-							<div className=' bg-yellow-50 py-3 px-7 max-sm:py-2 rounded-sm border-2 border-green-900 border-dashed absolute right-5 bottom-5 max-sm:text-xs'>
+							<div className='postcard-info-container'>
 								<p className='underline'>
 									From:
-									<span className='text-blue-800'> {from}</span>
+									<span> {from}</span>
 								</p>
 								<p className='underline'>
 									To:
-									<span className='text-blue-800'> {to}</span>
+									<span> {to}</span>
 								</p>
 							</div>
 						</div>
@@ -79,11 +74,7 @@ function Postcard({ backgroundImage, text, from, to, onDownloadComplete }) {
 				'
 				aria-label='Скачать открытку'
 			>
-				{isDownloading ? (
-					<span>Downloading...</span>
-				) : (
-					<span>Download Postcard</span>
-				)}
+				{isDownloading ? <p>Downloading...</p> : <p>Download Postcard</p>}
 			</button>
 		</div>
 	)
