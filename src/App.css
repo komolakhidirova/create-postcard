@@ -76,14 +76,14 @@
 	}
 
 	.postcard-text-container {
-		@apply max-w-sm m-10 max-sm:m-4  max-sm:max-w-35 bg-white p-10 max-sm:p-3 rounded-sm border-2 border-dashed border-blue-950;
+		@apply max-w-sm m-10 max-sm:m-4.5  max-sm:max-w-35 bg-white p-10 max-sm:p-3 rounded-sm border-2 border-dashed border-blue-950;
 	}
 
 	.postcard-text {
-		@apply text-xl md:text-3xl max-sm:text-[12px] font-bold text-blue-800 italic mb-0;
+		@apply text-xl md:text-3xl max-sm:text-[10px] font-bold text-blue-800 italic mb-0;
 	}
 
 	.postcard-info-container {
-		@apply bg-yellow-50 py-3 px-5 max-sm:py-1 rounded-sm border-2 border-green-900 border-dashed absolute right-5 bottom-5 max-sm:right-3 max-sm:bottom-3  max-sm:text-[5px];
+		@apply bg-yellow-50 py-3 px-10 max-sm:py-1 rounded-sm border-2 border-green-900 border-dashed absolute right-5 bottom-5 max-sm:right-3 max-sm:bottom-3  max-sm:text-[5px];
 	}
 }
