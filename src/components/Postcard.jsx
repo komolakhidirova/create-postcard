@@ -38,7 +38,7 @@ function Postcard({ backgroundImage, text, from, to, onDownloadComplete }) {
 				<div className='postcard'>
 					<div className='relative h-full w-full'>
 						<div className='postcard-stamp-container'>
-							<img src='/stamp.png' className='w-40 md:w-60 max-sm:w-23' />
+							<img src='/stamp.png' className='w-40 md:w-60 max-sm:w-21' />
 						</div>
 						<div
 							className='postcard-bg-image'
