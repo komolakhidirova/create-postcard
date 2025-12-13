@@ -5,7 +5,16 @@ import PostcardGallery from './components/PostcardGallery'
 function App() {
 	const [postcards, setPostcards] = useState(() => {
 		const saved = localStorage.getItem('postcards')
-		return saved ? JSON.parse(saved) : []
+		return saved
+			? JSON.parse(saved)
+			: [
+					{
+						backgroundImage: '/bg.jpg',
+						text: 'Example Text',
+						from: 'Me',
+						to: 'You',
+					},
+			  ]
 	})
 
 	const [newPostcard, setNewPostcard] = useState({

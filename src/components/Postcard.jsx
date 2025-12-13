@@ -52,7 +52,7 @@ function Postcard({ backgroundImage, text, from, to, onDownloadComplete }) {
 								<h1 className='postcard-text'>{text}</h1>
 							</div>
 							<div className='postcard-info-container'>
-								<p className='underline'>
+								<p className='underline max-sm:mb-1'>
 									From:
 									<span> {from}</span>
 								</p>
