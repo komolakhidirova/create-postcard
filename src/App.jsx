@@ -41,7 +41,7 @@ function App() {
 
 		try {
 			const response = await fetch(
-				`https://api.unsplash.com/search/photos?query=christmas ${query}&per_page=3&client_id=${UNSPLASH_ACCESS_KEY}`
+				`https://api.unsplash.com/search/photos?query=christmas ${query}&per_page=6&client_id=${UNSPLASH_ACCESS_KEY}`
 			)
 
 			if (!response.ok) {
