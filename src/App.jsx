@@ -130,7 +130,7 @@ function App() {
 							<>
 								<p className='mb-2'>Click to choose:</p>
 
-								<div className='flex gap-3'>
+								<div className='grid grid-cols-3 md:grid-cols-6 gap-3'>
 									{unsplashPhotos.map(photo => (
 										<button
 											key={photo.id}
