@@ -17,7 +17,7 @@ const PostcardGallery = ({ postcards, removePostcard }) => {
 								text={card.text}
 								from={card.from}
 								to={card.to}
-								showDownloadButton={true}
+								size={card.size}
 							/>
 
 							<button

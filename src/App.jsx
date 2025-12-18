@@ -13,6 +13,7 @@ function App() {
 						text: 'Example Text',
 						from: 'Me',
 						to: 'You',
+						size: 'big',
 					},
 			  ]
 	})
@@ -22,6 +23,7 @@ function App() {
 		text: '',
 		from: '',
 		to: '',
+		size: '',
 	})
 
 	const [unsplashPhotos, setUnsplashPhotos] = useState([])
@@ -74,7 +76,13 @@ function App() {
 		}
 
 		setPostcards([...postcards, newCard])
-		setNewPostcard({ backgroundImage: '', text: '', from: '', to: '' })
+		setNewPostcard({
+			backgroundImage: '',
+			text: '',
+			from: '',
+			to: '',
+			size: '',
+		})
 	}
 
 	const removePostcard = id => {
@@ -83,6 +91,10 @@ function App() {
 
 	const selectBackground = photoUrl => {
 		setNewPostcard({ ...newPostcard, backgroundImage: photoUrl })
+	}
+
+	const handleSizeChange = size => {
+		setNewPostcard({ ...newPostcard, size })
 	}
 
 	return (
@@ -159,7 +171,56 @@ function App() {
 						/>
 					</div>
 
-					<div className='flex  gap-5 mb-10'>
+					<div>
+						<label>Wishes Box Size:</label>
+						<div className='flex gap-5'>
+							<div className='flex items-center'>
+								<input
+									type='radio'
+									id='size-big'
+									name='size'
+									value='big'
+									checked={newPostcard.size === 'big'}
+									onChange={() => handleSizeChange('big')}
+									className='hidden'
+								/>
+								<label
+									htmlFor='size-big'
+									className={`form-btn border-2 border-brown ${
+										newPostcard.size === 'big'
+											? 'bg-brown text-white '
+											: 'bg-gray-200 text-brown hover:border-gray-200'
+									}`}
+								>
+									Big
+								</label>
+							</div>
+
+							<div className='flex items-center'>
+								<input
+									type='radio'
+									id='size-small'
+									name='size'
+									value='small'
+									checked={newPostcard.size === 'small'}
+									onChange={() => handleSizeChange('small')}
+									className='hidden'
+								/>
+								<label
+									htmlFor='size-small'
+									className={`form-btn border-2 border-brown ${
+										newPostcard.size === 'small'
+											? 'bg-brown text-white '
+											: 'bg-gray-200 text-brown hover:border-gray-200'
+									}`}
+								>
+									Small
+								</label>
+							</div>
+						</div>
+					</div>
+
+					<div className='flex gap-5 mb-10'>
 						<div className='w-full'>
 							<label>From:</label>
 							<input

@@ -1,7 +1,14 @@
 import { toPng } from 'html-to-image'
 import React, { useRef, useState } from 'react'
 
-function Postcard({ backgroundImage, text, from, to, onDownloadComplete }) {
+function Postcard({
+	backgroundImage,
+	text,
+	from,
+	to,
+	onDownloadComplete,
+	size,
+}) {
 	const postcardRef = useRef(null)
 	const [isDownloading, setIsDownloading] = useState(false)
 
@@ -48,8 +55,20 @@ function Postcard({ backgroundImage, text, from, to, onDownloadComplete }) {
 						/>
 
 						<div className='h-full w-full flex flex-col justify-start items-start relative z-10 '>
-							<div className='postcard-text-container'>
-								<h1 className='postcard-text'>{text}</h1>
+							<div
+								className={`postcard-text-container ${
+									size === 'small' &&
+									'm-5 max-sm:m-2 max-sm:max-w-25 p-5 max-sm:p-2'
+								}`}
+							>
+								<h1
+									className={`postcard-text ${
+										size === 'small' &&
+										'text-lg md:text-2xl max-sm:text-[0.5rem]'
+									}`}
+								>
+									{text}
+								</h1>
 							</div>
 							<div className='postcard-info-container'>
 								<p className='underline max-sm:mb-1.3'>
